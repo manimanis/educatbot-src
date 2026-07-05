@@ -1,0 +1,30 @@
+{
+  "name": "edu-chatbot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chatbot éducatif frontend (Bases de Données + Français) en Vue.js 3",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "server": "node server/proxy.js",
+    "start": "concurrently \"npm run server\" \"npm run dev\""
+  },
+  "dependencies": {
+    "chart.js": "^4.4.2",
+    "concurrently": "^10.0.3",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "highlight.js": "^11.9.0",
+    "markdown-it": "^14.1.0",
+    "nanoid": "^5.0.6",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.7",
+    "vite": "^8.1.3"
+  }
+}
