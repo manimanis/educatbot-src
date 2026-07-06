@@ -19,15 +19,17 @@ const DEFAULT_STATS = {
   timeSpentMs: 0,           // Temps total passé (ms)
   tokensUsed: 0,            // Estimation des tokens utilisés
   byMode: {
-    database: { messages: 0, exercises: 0, succeeded: 0 },
-    french:   { messages: 0, exercises: 0, succeeded: 0 },
-    mixed:    { messages: 0, exercises: 0, succeeded: 0 },
-    free:     { messages: 0, exercises: 0, succeeded: 0 }
+    database:  { messages: 0, exercises: 0, succeeded: 0 },
+    french:    { messages: 0, exercises: 0, succeeded: 0 },
+    algorithm: { messages: 0, exercises: 0, succeeded: 0 },
+    mixed:     { messages: 0, exercises: 0, succeeded: 0 },
+    free:      { messages: 0, exercises: 0, succeeded: 0 }
   },
   byDay: {},                // { 'YYYY-MM-DD': { messages, exercises, timeMs } }
   progression: {
     database: [],           // historique de réussite SQL
-    french:   []            // historique de réussite Français
+    french:   [],           // historique de réussite Français
+    algorithm: []           // historique de réussite Algorithmique
   }
 }
 
@@ -117,8 +119,8 @@ export const useStatsStore = defineStore('stats', {
         if (success) this.stats.byMode[modeKey].succeeded++
       }
 
-      // Progression par domaine (SQL ou français)
-      const domain = mode === 'database' ? 'database' : mode === 'french' ? 'french' : null
+      // Progression par domaine
+      const domain = mode === 'database' ? 'database' : mode === 'french' ? 'french' : mode === 'algorithm' ? 'algorithm' : null
       if (domain) {
         const arr = this.stats.progression[domain]
         arr.push({ date: new Date().toISOString(), success })

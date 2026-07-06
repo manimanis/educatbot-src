@@ -425,6 +425,7 @@ const niveauOptions = NIVEAUX.map(n => ({
 const profileIcons = {
   [PROFILE_MODES.DATABASE]: 'database',
   [PROFILE_MODES.FRENCH]: 'book',
+  [PROFILE_MODES.ALGORITHM]: 'cpu',
   [PROFILE_MODES.MIXED]: 'brain',
   [PROFILE_MODES.FREE]: 'sparkles'
 }

@@ -104,6 +104,16 @@
             <canvas ref="frenchChartRef"></canvas>
           </div>
         </div>
+
+        <div class="chart-card">
+          <div class="chart-card__header">
+            <h2><AppIcon name="cpu" :size="16" /> Progression Algorithmique</h2>
+            <span class="badge badge--brand">{{ algorithmStats.successRate }}% réussite</span>
+          </div>
+          <div class="chart-card__body">
+            <canvas ref="algorithmChartRef"></canvas>
+          </div>
+        </div>
       </div>
 
       <!-- Répartition par mode -->
@@ -169,6 +179,7 @@ const themeStore = useThemeStore()
 const activityChartRef = ref(null)
 const databaseChartRef = ref(null)
 const frenchChartRef = ref(null)
+const algorithmChartRef = ref(null)
 const modeChartRef = ref(null)
 
 let charts = []
@@ -187,6 +198,18 @@ const databaseStats = computed(() => {
 
 const frenchStats = computed(() => {
   const arr = statsStore.stats.progression.french
+  const success = arr.filter(x => x.success).length
+  const total = arr.length
+  return {
+    total,
+    success,
+    failed: total - success,
+    successRate: total ? Math.round(success / total * 100) : 0
+  }
+})
+
+const algorithmStats = computed(() => {
+  const arr = statsStore.stats.progression.algorithm
   const success = arr.filter(x => x.success).length
   const total = arr.length
   return {
@@ -340,6 +363,7 @@ function buildModeChart() {
   const colorMap = {
     database: colors.brand,
     french: colors.accent,
+    algorithm: colors.warning,
     mixed: colors.info,
     free: colors.text
   }
@@ -409,6 +433,14 @@ function buildAllCharts() {
         frenchChartRef.value,
         statsStore.stats.progression.french,
         'french'
+      )
+      if (chart) charts.push(chart)
+    }
+    if (algorithmChartRef.value) {
+      const chart = buildProgressionChart(
+        algorithmChartRef.value,
+        statsStore.stats.progression.algorithm,
+        'algorithm'
       )
       if (chart) charts.push(chart)
     }

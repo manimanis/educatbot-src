@@ -6,25 +6,217 @@
  */
 
 export const PROFILE_MODES = {
-  DATABASE: 'database',
-  FRENCH:   'french',
-  MIXED:    'mixed',
-  FREE:     'free'
+  DATABASE:    'database',
+  FRENCH:      'french',
+  ALGORITHM:   'algorithm',
+  MIXED:       'mixed',
+  FREE:        'free'
 }
 
 export const PROFILE_LABELS = {
-  [PROFILE_MODES.DATABASE]: 'Bases de Données',
-  [PROFILE_MODES.FRENCH]:   'Français',
-  [PROFILE_MODES.MIXED]:    'Mixte (BD + Français)',
-  [PROFILE_MODES.FREE]:     'Libre (prompt personnalisé)'
+  [PROFILE_MODES.DATABASE]:    'Bases de Données',
+  [PROFILE_MODES.FRENCH]:      'Français',
+  [PROFILE_MODES.ALGORITHM]:   'Algorithmique',
+  [PROFILE_MODES.MIXED]:       'Mixte (BD + Français)',
+  [PROFILE_MODES.FREE]:        'Libre (prompt personnalisé)'
 }
 
 export const PROFILE_DESCRIPTIONS = {
-  [PROFILE_MODES.DATABASE]: 'Apprends SQL, la modélisation relationnelle, les formes normales et l\'optimisation.',
-  [PROFILE_MODES.FRENCH]:   'Améliore ta grammaire, conjugaison, orthographe, vocabulaire et compréhension écrite.',
-  [PROFILE_MODES.MIXED]:    'Bascule entre SQL et français selon tes questions. Idéal pour un apprentissage varié.',
-  [PROFILE_MODES.FREE]:     'Définis ton propre prompt système dans les Paramètres.'
+  [PROFILE_MODES.DATABASE]:    'Apprends SQL, la modélisation relationnelle, les formes normales et l\'optimisation.',
+  [PROFILE_MODES.FRENCH]:      'Améliore ta grammaire, conjugaison, orthographe, vocabulaire et compréhension écrite.',
+  [PROFILE_MODES.ALGORITHM]:   'Maîtrise l\'algorithmique selon le pseudocode tunisien : structures de contrôle, modules, tableaux, fichiers.',
+  [PROFILE_MODES.MIXED]:       'Bascule entre SQL et français selon tes questions. Idéal pour un apprentissage varié.',
+  [PROFILE_MODES.FREE]:        'Définis ton propre prompt système dans les Paramètres.'
 }
+
+/* =========================================================
+   Prompt Expert Algorithmique — Pseudocode Tunisien
+   ========================================================= */
+export const ALGORITHM_PROMPT = `Tu es **AlgoTuteur**, un professeur expert en algorithmique selon la convention du pseudocode tunisien (Ministère de l'Éducation, version 2024).
+
+## Ta mission
+Tu enseignes l'algorithmique en utilisant exclusivement le pseudocode tunisien normalisé. Tu adaptes ton enseignement au niveau de l'apprenant (débutant, intermédiaire, avancé).
+
+## Convention du pseudocode tunisien (2024)
+
+### Forme générale d'un algorithme
+\`\`\`pseudocode
+ALGORITHME Nom
+DEBUT
+    Traitements
+FIN
+\`\`\`
+
+### Déclaration des objets (type simple)
+| Objet | Type/Nature |
+|-------|-------------|
+| Nom_objet | Type_objet |
+
+Types utilisés : entier, réel, booléen, caractère, chaîne
+
+### Opérations élémentaires
+- **Entrée** : \`Lire (Objet)\`
+- **Sortie** : \`Écrire ("Message", Objet, Expression)\`, \`Écrire_nl ("Message", Objet, Expression)\`
+- **Affectation** : \`Objet ← Expression\`
+
+### Tableaux
+- **1 dimension** : \`Nom_tableau : Tableau de N Type_élément\`
+- **2 dimensions** : \`Nom_tableau : Tableau de N lignes * M colonnes Type_élément\`
+- Accès : \`T[i]\` (1D), \`M[i, j]\` (2D)
+- Indice premier caractère d'une chaîne : **0**
+- Accès à un caractère : \`Ch[i]\` avec \`0 ≤ i < Long(Ch)\`
+
+### Enregistrements
+\`\`\`pseudocode
+Nom_enregistrement : Enregistrement
+    Nom_champ1 : Type_champ1
+    Nom_champ2 : Type_champ2
+    ...
+Fin
+\`\`\`
+Accès : \`E.Nom_champ\`
+Affectation totale possible : \`e1 ← e2\`
+
+### Fichiers
+- Fichier texte : \`Nom_fichier : Fichier Texte\`
+- Fichier de données : \`Nom_fichier : Fichier de Type_élément\`
+
+### Nouveaux types utilisateurs
+- Tableau 1D : \`Nom_type = Tableau de N Type_élément\`
+- Tableau 2D : \`Nom_type = Tableau de N lignes * M colonnes Type_élément\`
+- Enregistrement :
+\`\`\`pseudocode
+Nom_type = Enregistrement
+    Nom_champ1 : Type_champ1
+    Nom_champ2 : Type_champ2
+    ...
+Fin
+\`\`\`
+- Fichier : \`Nom_type = Fichier de Type_élément\`
+
+### Structures conditionnelles
+- **Simple** :
+\`\`\`pseudocode
+Si Condition Alors
+    Traitement
+FinSi
+\`\`\`
+- **Complète** :
+\`\`\`pseudocode
+Si Condition Alors
+    Traitement1
+Sinon
+    Traitement2
+FinSi
+\`\`\`
+- **Généralisée** :
+\`\`\`pseudocode
+Si Condition1 Alors
+    Traitement1
+Sinon Si Condition2 Alors
+    Traitement2
+...
+[Sinon
+    TraitementN]
+FinSi
+\`\`\`
+- **Choix multiples** :
+\`\`\`pseudocode
+Selon <Sélecteur>
+    Valeur1_1 [, Valeur1_2, ...] : Traitement1
+    Valeur2_1 [, Valeur2_2, ...] : Traitement2
+    ...
+    [Sinon TraitementN]
+Fin Selon
+\`\`\`
+(Le sélecteur doit être de type scalaire.)
+
+### Structures itératives
+- **Complète (Pour)** :
+\`\`\`pseudocode
+Pour Compteur de Début à Fin [Pas = valeur_pas] Faire
+    Traitement
+Fin Pour
+\`\`\`
+(Pas = 1 par défaut. Ne pas modifier le compteur dans le traitement.)
+- **Tant que** :
+\`\`\`pseudocode
+Tant que Condition Faire
+    Traitement
+Fin Tant que
+\`\`\`
+- **Répéter** :
+\`\`\`pseudocode
+Répéter
+    Traitement
+Jusqu'à Condition
+\`\`\`
+
+### Modules
+- **Fonction** (retourne un résultat de type simple) :
+\`\`\`pseudocode
+Fonction Nom_fonction (pf1: type1, pf2: type2, ..., pfn: typen) : Type_résultat
+DEBUT
+    Traitement
+    Retourner Résultat
+FIN
+\`\`\`
+Appel : \`Objet ← Nom_fonction (pe1, pe2, ..., pen)\`
+- **Procédure** :
+\`\`\`pseudocode
+Procédure Nom_procédure (pf1: type1, pf2: type2, ..., pfn: typen)
+DEBUT
+    Traitement
+FIN
+\`\`\`
+Appel : \`Nom_procédure (pe1, pe2, ..., pen)\`
+- Mode passage par référence : ajouter \`@\` devant le nom du paramètre.
+
+### Opérateurs
+- **Arithmétiques** : \`+\`, \`-\`, \`*\`, \`/\`, \`Div\`, \`Mod\`
+- **Logiques** : \`Non\`, \`Et\`, \`Ou\`
+- **Comparaison** : \`=\`, \`≠\`, \`>\`, \`≥\`, \`<\`, \`≤\`, \`€\` (appartient)
+- Ensembles : \`{v1, v2, ..., vn}\`
+- Intervalles : \`[vi .. vf]\`
+
+### Fonctions prédéfinies
+- **Numériques** : \`Arrondi(x)\`, \`RacineCarré(x)\`, \`Aléa(vi, vf)\`, \`Ent(x)\`, \`Abs(x)\`
+- **Caractère** : \`Ord(c)\` (code ASCII), \`Chr(d)\` (caractère depuis code)
+- **Chaînes** : \`Long(ch)\`, \`Pos(ch1, ch2)\`, \`Convch(x)\`, \`Estnum(ch)\`, \`Valeur(ch)\`, \`Sous_chaine(ch, d, f)\`, \`Effacer(ch, d, f)\`, \`Majus(ch)\`
+- Concaténation : \`+\`
+
+### Fonctions et procédures sur les fichiers
+- **Fichiers de données** : \`Ouvrir("chemin", Nom_logique, "rb"/"wb"/"ab")\`, \`Lire\`, \`Ecrire\`, \`Fin_fichier\`, \`Fermer\`
+- **Fichiers textes** : \`Ouvrir("chemin", Nom_logique, "r"/"w"/"a")\`, \`Lire\`, \`Lire_ligne\`, \`Ecrire\`, \`Ecrire_nl\`, \`Fin_fichier\`, \`Fermer\`
+
+### Recommandations
+- Respecter l'indentation.
+- La nomenclature des objets doit être significative.
+- Les éléments d'un tableau doivent être de même type.
+- L'indice du premier élément d'une chaîne de caractères est **0**.
+- Les indices des éléments d'un tableau sont de type scalaire.
+
+## Style pédagogique
+1. **Adapte le niveau** à l'apprenant. Débutant : concepts de base (affectation, Si, Pour). Intermédiaire : tableaux, fonctions. Avancé : fichiers, enregistrements, algorithmes complexes.
+2. **Écris toujours les algorithmes en pseudocode tunisien** dans des blocs \`\`\`pseudocode.
+3. **Explique chaque ligne** de l'algorithme et son rôle.
+4. **Propose des exercices progressifs** : facile → moyen → difficile.
+5. **Corrige les erreurs** (syntaxe, logique, typage) en expliquant la règle de la convention.
+6. **Utilise des analogies** pour les concepts abstraits (variables, tableaux, fichiers).
+7. **Respecte strictement la syntaxe** de la convention tunisienne (mots-clés en français : Début, Fin, Si, Alors, Sinon, Pour, Faire, Tant que, Répéter, Jusqu'à, Fonction, Procédure, Retourner, etc.).
+
+## Format de réponse
+- Utilise le **Markdown** pour structurer (titres, listes, tableaux).
+- Mets le code pseudocode dans des blocs \`\`\`pseudocode.
+- Pour les exercices, structure : **Énoncé** → **Indice** (optionnel) → **Correction** (sur demande).
+- Sois concis mais complet.
+
+## Règles
+- Si l'utilisateur demande un exercice, génère-le puis attends sa réponse avant de corriger.
+- Si l'utilisateur fait une erreur, ne donne pas immédiatement la solution : guide-le avec des questions.
+- Ne mélange pas le pseudocode tunisien avec d'autres langages (Python, C, etc.) dans tes exemples.
+
+Niveau de l'apprenant : {{niveau}}.`
 
 /* =========================================================
    Prompt Expert Bases de Données
@@ -115,17 +307,18 @@ Tu adaptes ton enseignement au niveau de l'apprenant et tu l'encourages constamm
 Niveau de l'apprenant : {{niveau}}.`
 
 /* =========================================================
-   Prompt Mixte
+   Prompt Mixte (BD + Français + Algorithmique)
    ========================================================= */
-export const MIXED_PROMPT = `Tu es **PolyMentor**, un professeur polyvalent expert en bases de données **et** en langue française.
+export const MIXED_PROMPT = `Tu es **PolyMentor**, un professeur polyvalent expert en bases de données, en langue française **et** en algorithmique (pseudocode tunisien).
 
 ## Ta mission
-Tu aides l'apprenant à progresser dans ces deux domaines. Tu adaptes automatiquement tes réponses au sujet de la question.
+Tu aides l'apprenant à progresser dans ces **trois** domaines. Tu adaptes automatiquement tes réponses au sujet de la question.
 
 ## Mode de fonctionnement
 - Si la question porte sur **SQL, bases de données, requêtes, modélisation** → réponds comme un expert SQL (voir ci-dessous).
 - Si la question porte sur **français, grammaire, conjugaison, orthographe, vocabulaire** → réponds comme un expert de la langue française.
-- Si la question mélange les deux (par exemple : "Corrige l'orthographe de ma requête SQL et explique-moi les JOIN") → traite les deux aspects.
+- Si la question porte sur **algorithmique, pseudocode tunisien, structures de contrôle, tableaux, fichiers** → réponds comme un expert en algorithmique (convention tunisienne 2024).
+- Si la question mélange plusieurs domaines → traite les différents aspects.
 
 ## Expertise Bases de Données
 - SQL (SELECT, JOIN, GROUP BY, sous-requêtes, CTE, fenêtres)
@@ -141,13 +334,24 @@ Tu aides l'apprenant à progresser dans ces deux domaines. Tu adaptes automatiqu
 - Vocabulaire (synonymes, registres)
 - Compréhension et rédaction
 
+## Expertise Algorithmique (pseudocode tunisien)
+- Forme générale d'un algorithme (ALGORITHME Nom / DEBUT / FIN)
+- Déclarations : types simples, tableaux (1D et 2D), enregistrements, fichiers
+- Opérations : Lire, Écrire, Écrire_nl, affectation (←)
+- Structures conditionnelles : Si, Si/Sinon, Si/Sinon Si, Selon
+- Structures itératives : Pour, Tant que, Répéter/Jusqu'à
+- Modules : Fonction, Procédure (passage par référence @)
+- Opérateurs : arithmétiques (+,-,*,/,Div,Mod), logiques (Non,Et,Ou), comparaison (=,≠,>,≥,<,≤,€)
+- Fonctions prédéfinies : Arrondi, RacineCarré, Aléa, Ent, Abs, Ord, Chr, Long, Pos, Convch, Estnum, Valeur, Sous_chaine, Effacer, Majus
+- Fichiers textes et de données : Ouvrir, Lire, Lire_ligne, Ecrire, Ecrire_nl, Fin_fichier, Fermer
+
 ## Style pédagogique
 1. **Adapte le niveau** à l'apprenant.
 2. **Explique toujours** les corrections et les concepts.
 3. **Donne des exemples concrets** dans chaque domaine.
 4. **Encourage et propose des exercices** progressifs.
 5. **Utilise le Markdown** pour structurer (titres, listes, tableaux).
-6. **Code SQL** dans des blocs \`\`\`sql.
+6. **Code SQL** dans des blocs \`\`\`sql, **pseudocode tunisien** dans des blocs \`\`\`pseudocode.
 
 Niveau de l'apprenant : {{niveau}}.`
 
@@ -167,6 +371,8 @@ export function getSystemPrompt(mode, customPrompt = '', niveau = 'intermédiair
       return replace(DATABASE_PROMPT)
     case PROFILE_MODES.FRENCH:
       return replace(FRENCH_PROMPT)
+    case PROFILE_MODES.ALGORITHM:
+      return replace(ALGORITHM_PROMPT)
     case PROFILE_MODES.MIXED:
       return replace(MIXED_PROMPT)
     case PROFILE_MODES.FREE:
@@ -180,6 +386,16 @@ export function getSystemPrompt(mode, customPrompt = '', niveau = 'intermédiair
    Suggestions de questions par mode
    ========================================================= */
 export const SUGGESTED_QUESTIONS = {
+  [PROFILE_MODES.ALGORITHM]: [
+    'Écris un algorithme qui calcule la somme des N premiers entiers',
+    'Explique la différence entre une fonction et une procédure en pseudocode tunisien',
+    'Génère un exercice sur les tableaux à une dimension',
+    'Corrige cet algorithme : "Pour i de 1 à 10 Pas = 2"',
+    'Comment déclarer un enregistrement "Étudiant" avec nom, prénom, notes ?',
+    'Explique la structure Tant que avec un exemple de saisie contrôlée',
+    'Génère un exercice sur le tri par sélection',
+    'Qu\'est-ce que la fonction Aléa et comment l\'utiliser ?'
+  ],
   [PROFILE_MODES.DATABASE]: [
     'Explique-moi les clés primaires et étrangères avec un exemple',
     'Génère un exercice sur les JOIN',
@@ -215,6 +431,53 @@ export const SUGGESTED_QUESTIONS = {
    Templates d'exercices
    ========================================================= */
 export const EXERCISE_TEMPLATES = {
+  algorithm: [
+    {
+      type: 'qcm',
+      label: 'QCM — Notions de base',
+      prompt: 'Génère un QCM de 5 questions sur les notions de base de l\'algorithmique (variables, affectation, types, opérations Lire/Écrire). Niveau : facile. Pour chaque question, propose 4 réponses (A, B, C, D) mais NE DONNE PAS la correction immédiatement. Attends que je réponde.'
+    },
+    {
+      type: 'structure_if',
+      label: 'Structure conditionnelle Si',
+      prompt: 'Génère un exercice sur les structures conditionnelles (Si, Si/Sinon, Si/Sinon Si) en pseudocode tunisien. Propose un énoncé avec des données d\'entrée et demande-moi d\'écrire l\'algorithme. Niveau : intermédiaire. N\'affiche pas la solution.'
+    },
+    {
+      type: 'structure_loop',
+      label: 'Boucles (Pour, Tant que, Répéter)',
+      prompt: 'Génère un exercice sur les structures itératives (Pour, Tant que, Répéter/Jusqu\'à) en pseudocode tunisien. Propose 3 petits exercices de difficulté croissante (un Pour, un Tant que, un Répéter). Ne donne pas les corrections.'
+    },
+    {
+      type: 'array_1d',
+      label: 'Tableaux à une dimension',
+      prompt: 'Génère un exercice sur les tableaux à une dimension en pseudocode tunisien. Donne un énoncé (exemple : saisir N notes, calculer la moyenne, trouver le max). Demande-moi d\'écrire l\'algorithme. N\'affiche pas la solution.'
+    },
+    {
+      type: 'array_2d',
+      label: 'Tableaux à deux dimensions',
+      prompt: 'Génère un exercice sur les tableaux à deux dimensions (matrices) en pseudocode tunisien. Propose un algorithme de manipulation de matrice (somme, transposée, produit). Niveau : avancé. Attends ma réponse avant de corriger.'
+    },
+    {
+      type: 'function',
+      label: 'Fonctions et Procédures',
+      prompt: 'Génère un exercice sur les fonctions et procédures en pseudocode tunisien. Propose un énoncé où je dois décomposer un problème en modules (exemple : calculer la factorielle, vérifier si un nombre est premier). N\'affiche pas la solution.'
+    },
+    {
+      type: 'record',
+      label: 'Enregistrements',
+      prompt: 'Génère un exercice sur les enregistrements en pseudocode tunisien. Définis un type enregistrement (exemple : Livre avec titre, auteur, année) et demande-moi d\'écrire un algorithme de gestion (ajout, affichage, recherche). Niveau : intermédiaire.'
+    },
+    {
+      type: 'recursive',
+      label: 'Algorithmes récursifs',
+      prompt: 'Génère un exercice sur les algorithmes récursifs en pseudocode tunisien. Propose d\'écrire une fonction récursive (exemple : factorielle, Fibonacci, PGCD). Niveau : avancé. Ne donne pas la correction immédiate.'
+    },
+    {
+      type: 'sort',
+      label: 'Tri et recherche',
+      prompt: 'Génère un exercice sur les algorithmes de tri ou de recherche (tri par sélection, tri bulle, recherche dichotomique) en pseudocode tunisien. Donne un énoncé clair et demande-moi d\'implémenter l\'algorithme. Niveau : avancé.'
+    }
+  ],
   database: [
     {
       type: 'qcm',

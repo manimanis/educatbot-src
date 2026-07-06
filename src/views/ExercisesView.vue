@@ -24,6 +24,13 @@
           <AppIcon name="book" :size="18" />
           <span>Français</span>
         </button>
+        <button
+          :class="['module-tab', { 'module-tab--active': activeModule === 'algorithm' }]"
+          @click="activeModule = 'algorithm'"
+        >
+          <AppIcon name="cpu" :size="18" />
+          <span>Algorithmique</span>
+        </button>
       </div>
 
       <!-- Grille des types d'exercices -->
@@ -127,7 +134,7 @@ const settingsStore = useSettingsStore()
 const statsStore = useStatsStore()
 const { send } = useChat()
 
-const activeModule = ref('database') // 'database' | 'french'
+const activeModule = ref('database') // 'database' | 'french' | 'algorithm'
 const generating = ref(null)
 const correcting = ref(false)
 const explaining = ref(false)
@@ -152,7 +159,15 @@ function exerciseIcon(type) {
     dictation: 'book',
     correction: 'edit',
     vocabulary: 'book',
-    homophones: 'book'
+    homophones: 'book',
+    structure_if: 'git-branch',
+    structure_loop: 'repeat',
+    array_1d: 'list',
+    array_2d: 'grid',
+    function: 'code',
+    record: 'database',
+    recursive: 'repeat',
+    sort: 'trending-up'
   }
   return map[type] || 'exercise'
 }
@@ -170,7 +185,15 @@ function exerciseDescription(type) {
     dictation: 'Écris sous dictée pour travailler l\'orthographe.',
     correction: 'Corrige un texte contenant des fautes.',
     vocabulary: 'Trouve synonymes et antonymes.',
-    homophones: 'Distingue les homophones (a/à, et/est…).'
+    homophones: 'Distingue les homophones (a/à, et/est…).',
+    structure_if: 'Pratique les structures conditionnelles (Si, Sinon, Selon).',
+    structure_loop: 'Maîtrise les boucles Pour, Tant que, Répéter.',
+    array_1d: 'Manipule les tableaux à une dimension.',
+    array_2d: 'Travaille avec les matrices et tableaux 2D.',
+    function: 'Crée des fonctions et procédures modulaires.',
+    record: 'Utilise les enregistrements pour structurer les données.',
+    recursive: 'Implémente des algorithmes récursifs.',
+    sort: 'Implémente des algorithmes de tri et recherche.'
   }
   return map[type] || 'Exercice pédagogique.'
 }
@@ -184,7 +207,9 @@ async function generate(exercise) {
     ? 'database'
     : activeModule.value === 'french'
       ? 'french'
-      : 'mixed'
+      : activeModule.value === 'algorithm'
+        ? 'algorithm'
+        : 'mixed'
 
   if (!conversationsStore.activeId) {
     await conversationsStore.createConversation({ mode: targetMode })
