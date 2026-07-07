@@ -33,6 +33,13 @@
             <span>SQL et français en alternance</span>
           </div>
         </div>
+        <div class="empty-card" :class="{ 'empty-card--active': settingsStore.settings.mode === 'algorithm' }" @click="setMode('algorithm')">
+          <AppIcon name="code" :size="24" />
+          <div>
+            <strong>Algorithmes</strong>
+            <span>Logique, structures de données, complexité</span>
+          </div>
+        </div>
       </div>
 
       <div class="chat-window__empty-warning" v-if="!settingsStore.isConfigured">
@@ -165,7 +172,7 @@ defineExpose({ scrollToBottom })
 }
 
 @media (min-width: 768px) {
-  .chat-window__empty-cards { grid-template-columns: repeat(3, 1fr); }
+  .chat-window__empty-cards { grid-template-columns: repeat(4, 1fr); }
 }
 
 .empty-card {

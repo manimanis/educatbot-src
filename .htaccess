@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Le chemin de base du projet dans XAMPP
+RewriteBase /MesProjets/educatbot-src/
+
+# Ne pas rediriger si le fichier ou dossier existe
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rediriger toutes les autres requêtes vers index.php
+RewriteRule ^(.*)$ index.php [QSA,L]

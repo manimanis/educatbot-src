@@ -132,8 +132,8 @@ async function sendNormal(messages, settings, { signal } = {}) {
   if (signal) signal.addEventListener('abort', () => controller.abort())
 
   try {
-    // Use proxy server to avoid CORS issues
-    const proxyUrl = 'http://localhost:3001/api/chat/completions'
+    // Use PHP proxy server to avoid CORS issues
+    const proxyUrl = 'http://localhost/MesProjets/educatbot-src/server/proxy.php?action=chat'
     const res = await fetch(proxyUrl, {
       method: 'POST',
       headers: {
@@ -199,8 +199,8 @@ async function sendStream(messages, settings, { signal, onToken } = {}) {
   let fullContent = ''
 
   try {
-    // Use proxy server to avoid CORS issues
-    const proxyUrl = 'http://localhost:3001/api/chat/completions'
+    // Use PHP proxy server to avoid CORS issues
+    const proxyUrl = 'http://localhost/MesProjets/educatbot-src/server/proxy.php?action=chat'
     const res = await fetch(proxyUrl, {
       method: 'POST',
       headers: {

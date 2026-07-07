@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 // Configuration Vite pour l'application Vue.js 3 (100% frontend, pas de backend)
 export default defineConfig({
+  base: '/MesProjets/educatbot-src/',
   plugins: [vue()],
   resolve: {
     alias: {
@@ -25,10 +26,16 @@ export default defineConfig({
     chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vue-vendor': ['vue', 'vue-router', 'pinia'],
-          'chart-vendor': ['chart.js'],
-          'markdown-vendor': ['markdown-it', 'highlight.js']
+        manualChunks(id) {
+          if (id.includes('node_modules/vue') || id.includes('node_modules/vue-router') || id.includes('node_modules/pinia')) {
+            return 'vue-vendor'
+          }
+          if (id.includes('node_modules/chart.js')) {
+            return 'chart-vendor'
+          }
+          if (id.includes('node_modules/markdown-it') || id.includes('node_modules/highlight.js')) {
+            return 'markdown-vendor'
+          }
         }
       }
     }
